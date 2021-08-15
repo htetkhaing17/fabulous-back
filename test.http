@@ -1,0 +1,10 @@
+POST http://localhost:8000/api/register
+
+content-type: application/json
+
+{
+    "fullname": "Htet Khaing",
+    "display_name" : "Htet Khaing",
+    "email" : "htetkhaing17@gmail.com",
+    "password" : "password"
+}

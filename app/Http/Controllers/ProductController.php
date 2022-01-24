@@ -10,9 +10,11 @@ class ProductController extends Controller
 {
    public function recentlyAddedProducts()
    {      
-      Cache::add('recent_products', Product::latest()->take(10)->get());
+      Cache::add('recent_products', Product::with('coverImage')->orderBy('id', 'desc')->latest()->take(10)->get());
       return response()->json(['data' => 
-         ProductResource::collection(Cache::get('recent_products', Product::latest()->take(10)->get()))
+         // ProductResource::collection(Cache::get('recent_products', Product::with('coverImage')->orderBy('id', 'desc')->latest()->take(10)->get()))
+         ProductResource::collection(Product::with('coverImage')->orderBy('id', 'desc')->latest()->take(20)->get())
+
       ]);
    }
 }

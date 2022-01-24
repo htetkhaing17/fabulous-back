@@ -14,11 +14,16 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        if($this->coverImage){
+
+        }
         return [
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'price' => number_format($this->price)
+            'price' => number_format($this->price),
+            'coverImage' => $this->coverImage[0]['filename']??''
+
         ];
     }
 }

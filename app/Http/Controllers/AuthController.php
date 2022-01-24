@@ -44,14 +44,24 @@ class AuthController extends Controller
         ]);
 
         if (auth()->attempt($credentials)) {
-            return response()->json(['message' => 'OK!'], 200);
+            return response()->json(['message' => 'OK!', 'user' => auth('sanctum')->user()], 200);
         }
 
         return response()->json(['message' => 'Invalid email or password.'], 422);
     }
 
+    public function logout(Request $request)
+    {
+        auth('sanctum')->user->tokens()->delete();
+    }
+
     public function me(Request $request)
     {
         return $request->user();
+    }
+
+    public function editProfile()
+    {
+        return response()->json(['message' => 'ok', 'data' => auth('sanctum')->user()]);
     }
 }

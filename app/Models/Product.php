@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -17,7 +18,7 @@ class Product extends Model
      */
     protected $fillable = [
         'user_id','title',
-        'sku', 'in_stock',
+        'sku', 'in_stock', 'is_public',
         'description', 'price',        
     ];
 
@@ -31,5 +32,21 @@ class Product extends Model
     {
         return Carbon::parse($this->attributes['created_at'])->format('Y-m-d');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_product');
+    }
+
+    public function images()
+    {
+        return $this->hasMany('App\Models\ProductImage');
+    }
+
+    public function coverImage()
+    {
+        return $this->images()->take(1);
+    }
+   
 
 }

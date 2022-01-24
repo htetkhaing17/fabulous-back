@@ -48,15 +48,39 @@ class InventoryController extends Controller
         }
 
         $product = $this->repo->createProduct($request->only('title', 'sku', 'description', 
-        'price', 'is_public', 'in_stock'));
+        'price', 'is_public', 'in_stock', 'categories'));
 
         if($product){
             Cache::forget('recent_products');
-            return response()->json(['message', 'ok']);
+            return response()->json(['message' => 'ok', 'product' => $product], 200);
         }
 
         return response()->json(['message', 'error in creating product'], 422);
     }
+
+
+    public function edit($user_id, $id)
+    {
+        $product = $this->repo->edit($id);
+        return response()->json(['data' => $product, 'message' => 'ok']);
+    }
+
+    /**
+     * Product Update
+     */
+    public function update(Request  $request,$user_id,  $id)
+    {
+        $product = $this->repo->update($request->only('title', 'sku', 'description', 
+        'price', 'is_public', 'in_stock', 'categories', 'new_images', 'removed_images'), $id);
+        return response()->json(['data' => $product, 'message' => 'ok']);
+    }
+
+    function delete($id)
+    {
+        # code...
+    }
+
+
 
     public function all()
     {

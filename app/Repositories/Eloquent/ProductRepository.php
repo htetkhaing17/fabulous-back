@@ -21,6 +21,11 @@ class ProductRepository implements InterfacesProductInterface
         # code...
     }
 
+    public function edit($id)
+    {
+        # code...
+    }
+
     public function update($request, $id)
     {
         # code...

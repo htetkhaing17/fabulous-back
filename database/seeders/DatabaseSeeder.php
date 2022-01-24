@@ -30,9 +30,9 @@ class DatabaseSeeder extends Seeder
         ->count(5000)
         ->create();
 
-        $this->call[
+        $this->call([
             CategoriesSeeder::class
-        ];
+        ]);
 
 
     }
